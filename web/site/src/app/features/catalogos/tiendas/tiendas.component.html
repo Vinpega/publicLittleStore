@@ -1,0 +1,33 @@
+<div class="tiendas-container">
+  <h2> Tiendas </h2>
+  <button (click)="agregarTienda()"  *ngIf="!tiendaSeleccionada">Agregar</button>
+  <div>
+    <form (submit)="guardarCambios()">
+      <div  *ngIf="tiendaSeleccionada">
+        <div class="form-group">
+          <label for="editSucursal">Sucursal:</label>
+          <input type="text" id="editSucursal" [readonly]="readonlyMode" [(ngModel)]="tiendaSeleccionada.sucursal" name="editSucursal" required>
+        </div>
+        <div class="form-group">
+          <label for="editDireccion">Dirección:</label>
+          <input type="text" id="editDireccion" [(ngModel)]="tiendaSeleccionada.direccion" name="editDireccion" required>
+        </div>
+        <button type="submit">Guardar Cambios</button>
+        <button (click)="cancelarEdicion()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Lista de Tiendas -->
+  <div>
+    <h3>Lista de Tiendas</h3>
+    <ul>
+      <li *ngFor="let tienda of tiendas">
+        <span>{{ tienda.sucursal }}</span>
+        <span>{{ tienda.direccion }}</span>
+        <button (click)="editarTienda(tienda)">Editar</button>
+        <button (click)="eliminarTienda(tienda)">Eliminar</button>
+      </li>
+    </ul>
+  </div>
+</div>

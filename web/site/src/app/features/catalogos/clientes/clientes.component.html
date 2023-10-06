@@ -1,0 +1,48 @@
+<div class="clientes-container">
+  <h2>Clientes</h2>
+  <button (click)="agregarCliente()" *ngIf="!clienteSeleccionado">Agregar</button>
+   <div *ngIf="clienteSeleccionado" >
+    <h3>Editar Cliente</h3>
+    <form (submit)="guardarCambios()">
+      <div class="form-group">
+        <label for="editId">Id:</label>
+        <input type="text" id="editId" readonly [(ngModel)]="clienteSeleccionado.id" name="editId" required>
+      </div>
+      <div class="form-group">
+        <label for="editNombre">Nombre:</label>
+        <input type="text" id="editNombre" [(ngModel)]="clienteSeleccionado.nombre" name="editNombre" required>
+      </div>
+      <div class="form-group">
+        <label for="editApellidos">Apellidos:</label>
+        <input type="text" id="editApellidos" [(ngModel)]="clienteSeleccionado.apellidos" name="editApellidos" required>
+      </div>
+      <div class="form-group">
+        <label for="editDireccion">Dirección:</label>
+        <input type="text" id="editDireccion" [(ngModel)]="clienteSeleccionado.direccion" name="editDireccion" required>
+      </div>
+      <div class="form-group">
+        <label for="editClave">Clave:</label>
+        <input type="text" id="editClave" [(ngModel)]="clienteSeleccionado.clave" name="editClave" required>
+      </div>
+      <button type="submit">Guardar Cambios</button>
+      <button (click)="cancelarEdicion()">Cancelar</button>
+    </form>
+  </div>
+
+  <!-- Lista de Clientes -->
+  <div>
+    <h3>Lista de Clientes</h3>
+    <ul>
+      <li *ngFor="let cliente of clientes">
+        <span>{{ cliente.id }} </span>
+        <span>{{ cliente.nombre }} {{ cliente.apellidos }}</span>
+        <span>{{ cliente.direccion }}</span>
+        <span>{{ cliente.clave }}</span>
+        <button (click)="editarCliente(cliente)">Editar</button>
+        <button (click)="eliminarCliente(cliente)">Eliminar</button>
+      </li>
+    </ul>
+  </div>
+
+
+</div>

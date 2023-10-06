@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+
+input[readonly] {
+  background-color: #f9f9f9; /* Fondo gris claro */
+  border: 1px solid #ccc; /* Borde gris */
+  border-radius: 3px;
+  padding: 5px 10px; /* Espaciado interno */
+  color: #333; /* Color de texto */
+  cursor: not-allowed; /* Cursor no permitido */
+}

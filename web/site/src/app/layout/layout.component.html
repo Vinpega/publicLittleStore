@@ -1,0 +1,12 @@
+<div class="navbar">
+  <ul>
+    <li><a [routerLink]="['/catalogos/articulos']">Articulos</a></li>
+    <li><a [routerLink]="['/catalogos/tiendas']">Tiendas</a></li>
+    <li><a [routerLink]="['/catalogos/clientes']">Clientes</a></li>
+    <li><a [routerLink]="['/movimientos/inventario']">Inventario</a></li>
+    <li><a [routerLink]="['/movimientos/carrito']">Carrito de Compra ({{carritoService.items.length}})</a></li>
+    <li><a [routerLink]="['#']"(click)="salir()">Salir</a></li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>

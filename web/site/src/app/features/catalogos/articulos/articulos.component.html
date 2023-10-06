@@ -1,0 +1,66 @@
+<div class="articulos-container actions">
+  <h2>Lista de Artículos</h2>
+  <button (click)="agregarNuevo()" *ngIf="!articuloSeleccionado">Agregar</button>
+  <!-- Formulario de edición -->
+  <div *ngIf="articuloSeleccionado" class="selected-articulo-container">
+    <h3>Editar Artículo</h3>
+    <form (submit)="guardarCambios()" class="articulo-details back-button">
+      <div class="form-group">
+        <label for="codigo">Código:</label>
+        <input type="text" [readonly]="readonlyMode" id="codigo" [(ngModel)]="articuloSeleccionado.codigo" name="codigo" required>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" [(ngModel)]="articuloSeleccionado.descripcion" name="descripcion" required>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" [(ngModel)]="articuloSeleccionado.precio" name="precio" required>
+      </div>
+      <div class="form-group">
+        <label for="imagen">Imagen:</label>
+        <input type="text" id="imagen" [(ngModel)]="articuloSeleccionado.imagen" name="imagen">
+      </div>
+      <div class="form-group">
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" [(ngModel)]="articuloSeleccionado.stock" name="stock" required>
+      </div>
+      <button type="submit">Guardar Cambios</button>
+      <button (click)="cancelarEdicion()">Cancelar</button>
+    </form>
+  </div>
+
+  <table class="articulo-list">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Imagen</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="articulo-item" *ngFor="let articulo of articulos">
+        <td>{{ articulo.codigo }}</td>
+        <td>{{ articulo.descripcion }}</td>
+        <td>{{ articulo.precio }}</td>
+        <!-- <td class="text-abr" style="max-width: 160px;">{{ articulo.imagen }}</td> -->
+        <td><img [src]="articulo.imagen"
+            width="80px" height="80px"
+            alt="img"
+            title="Tooltip: {{articulo.imagen}}"
+            onerror="this.classList.add('image-placeholder')" /> </td>
+        <td>{{ articulo.stock }}</td>
+        <td>
+          <button (click)="editarArticulo(articulo)">Editar</button>
+          <button (click)="eliminarArticulo(articulo.codigo ?? '')">Eliminar</button>
+          <button  class="comprar-button" [disabled]="articulo.stock === 0 " (click)="agregarAlCarrito(articulo)">Comprar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

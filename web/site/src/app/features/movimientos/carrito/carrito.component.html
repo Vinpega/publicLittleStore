@@ -1,0 +1,37 @@
+<div class="carrito-compras">
+  <h2>Carrito de Compras</h2>
+  <div *ngIf="!carritoService.carrito">
+    <h3>Ultimas compras</h3>
+    <div *ngFor="let compra of compras">
+      <h3>Compra #{{ compra.id }}</h3>
+      <p>Fecha: {{ compra.fecha|date:"mediumDate"  }}</p>
+      <p>Total: {{ compra.total|currency }}</p>
+      <ul>
+        <li *ngFor="let compraArticulo of obtenerDetalle(compra.id)">
+          <p *ngIf="obtenerArticulo(compraArticulo.codigoArticulo) as art">Articulo: {{art.codigo}} {{ art?.descripcion }}</p>
+          <p>Cantidad: {{ compraArticulo.cantidad }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="carritoService.carrito && !carritoService.carrito.pagada">
+    <div *ngIf="carritoService.carrito as carrito">
+      <h3>Compra #{{ carrito.id}}</h3>
+      <p>Fecha: {{ carrito.fecha|date:"mediumDate" }}</p>
+      <p>Total: {{ carrito.total|currency }}</p>
+      <ul>
+        <li *ngFor="let compraArticulo of carritoService.items ">
+          <div>
+            <p *ngIf="obtenerArticulo(compraArticulo.codigoArticulo) as art">Articulo: {{art.codigo}} {{ art.descripcion }}</p>
+            <p>Cantidad: {{ compraArticulo.cantidad }}</p>
+          </div>
+          <button (click)="eliminarItem(compraArticulo, compraArticulo.codigoArticulo)"> - 1</button>
+        </li>
+      </ul>
+      <button (click)="pagar()">Pagar</button>
+      <button (click)="vaciarCarrito()">Vaciar carrito</button>
+    </div>
+
+  </div>
+</div>
+

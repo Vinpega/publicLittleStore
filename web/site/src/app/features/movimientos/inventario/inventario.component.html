@@ -1,0 +1,60 @@
+<div class="articulos-container actions">
+  <h2>Lista de Artículos en Tienda</h2>
+  <button (click)="agregarNuevo()">Agregar</button>
+
+  <!-- Formulario de edición -->
+  <div  class="selected-articulo-container" *ngIf="registroSeleccionado">
+    <h3>Editar Artículo</h3>
+    <form (submit)="guardarCambios()" class="articulo-details back-button" >
+      <div class="form-group">
+        <label for="Id">Id:</label>
+        <input type="text" readonly id="Id" [(ngModel)]="registroSeleccionado.id" name="id" required>
+      </div>
+      <div class="form-group">
+        <label for="codigoArticulo">Articulo:</label>
+        <select name="codigoArticulo" id="codigoArticulo" [(ngModel)]="registroSeleccionado.codigoArticulo" required>
+          <option [value]="articulo.codigo" *ngFor="let articulo of articulos">{{articulo.descripcion}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tiendaSucursal">Tienda:</label>
+        <select name="tiendaSucursal" id="tiendaSucursal" [(ngModel)]="registroSeleccionado.tiendaSucursal" required>
+          <option [value]="tienda.sucursal" *ngFor="let tienda of tiendas">{{tienda.direccion}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" [ngModel]="registroSeleccionado.fecha.toISOString().slice(0, 10)" name="fecha"
+          (change)="dateChage($event.target)">
+      </div>
+      <button type="submit">Guardar Cambios</button>
+      <button (click)="cancelarEdicion()">Cancelar</button>
+    </form>
+  </div>
+
+  <table class="articulo-list">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Codigo articulo</th>
+        <th>Tienda</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="articulo-item" *ngFor="let articulo of registros">
+        <td>{{ articulo.id }}</td>
+        <td>{{ getArticulo(articulo.codigoArticulo) }}</td>
+        <td>{{ getTienda(articulo.tiendaSucursal)  }}</td>
+        <td>{{ articulo.fecha|date:"mediumDate" }}</td>
+        <td>
+          <button (click)="editarArticulo(articulo)">Editar</button>
+          <button (click)="eliminarArticulo(articulo.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
